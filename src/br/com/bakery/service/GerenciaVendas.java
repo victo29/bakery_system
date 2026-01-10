@@ -59,12 +59,6 @@ public class GerenciaVendas implements GerenciaVendasInterface {
                 .forEach(this::imprimirVenda);
     }
 
-    @Override
-    public void RelatorioVendasNaoPagas() {
-        vendaRepository.listar().stream()
-                .filter(v -> !v.statusVenda())
-                .forEach(this::imprimirVenda);
-    }
 
     private void imprimirVenda(Venda venda) {
         System.out.println("====================================");
@@ -92,7 +86,6 @@ public class GerenciaVendas implements GerenciaVendasInterface {
         System.out.println("\nVenda:");
         System.out.println("Quantidade: " + venda.getQuantidadeVendida());
         System.out.println("Meio de pagamento: " + venda.getMeioPagamento().getDescricao());
-        System.out.println("Status: " + (venda.statusVenda() ? "Pago" : "Não pago"));
         System.out.println("Valor total: R$ " + venda.getValorVenda());
         System.out.println("====================================");
     }

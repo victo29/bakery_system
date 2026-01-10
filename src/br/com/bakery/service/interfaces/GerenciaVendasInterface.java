@@ -13,8 +13,6 @@ public interface GerenciaVendasInterface {
 
     void RelatorioVendasPorMeioPagamento(MeioPagamento meioPagamento);
 
-    void RelatorioVendasNaoPagas();
-
     void cadastrarVenda(Venda venda);
 
 }
