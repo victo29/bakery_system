@@ -13,7 +13,6 @@ public class Venda {
     private int quantidadeVendida;
     private double valorVenda;
     private MeioPagamento meioPagamento;
-    private boolean statusVenda;
 
     public Cliente getCliente() {
         return cliente;
@@ -71,14 +70,6 @@ public class Venda {
         this.meioPagamento = meioPagamento;
     }
 
-    public boolean statusVenda() {
-        return statusVenda;
-    }
-
-    public void setStatusVenda(boolean statusVenda) {
-        this.statusVenda = statusVenda;
-    }
-
     public Venda() {
         this.id = count++;
     }
@@ -91,7 +82,7 @@ public class Venda {
         this.id = id;
     }
 
-    public Venda(Cliente cliente, int dia, int mes, Produto produto, int qtd, MeioPagamento meio, boolean status) {
+    public Venda(Cliente cliente, int dia, int mes, Produto produto, int qtd, MeioPagamento meio) {
         this.id = count++;
         this.cliente = cliente;
         this.diaVenda = dia;
@@ -99,7 +90,6 @@ public class Venda {
         this.produto = produto;
         this.quantidadeVendida = qtd;
         this.meioPagamento = meio;
-        this.statusVenda = status;
         this.valorVenda = produto.getValorVenda() * qtd;
     }
 }

@@ -84,7 +84,6 @@ public class Menu {
             System.out.println("4 - Relatório de Vendas por Mês");
             System.out.println("5 - Relatório de Vendas (Fiado)");
             System.out.println("6 - Relatório de Vendas (Dinheiro)");
-            System.out.println("7 - Relatório de Vendas Não Pagas");
             System.out.println("0 - Sair");
             opcao = this.inputInt("Escolha: ", "opção");
 
@@ -95,7 +94,6 @@ public class Menu {
                 case 4 -> relatorioPorMes();
                 case 5 -> gerenciaVendas.RelatorioVendasPorMeioPagamento(MeioPagamento.FIADO);
                 case 6 -> gerenciaVendas.RelatorioVendasPorMeioPagamento(MeioPagamento.DINHEIRO);
-                case 7 -> gerenciaVendas.RelatorioVendasNaoPagas();
                 case 0 -> System.out.println("Saindo do menu de vendas...");
                 default -> System.out.println("Opção inválida.");
             }
@@ -164,14 +162,11 @@ public class Menu {
             default -> MeioPagamento.DINHEIRO;
         };
 
-        System.out.print("Pago? (true/false): ");
-        boolean pago = sc.nextBoolean();
-
         LocalDate dataAtual = LocalDate.now();
         int dia = dataAtual.getDayOfMonth();
         int mes = dataAtual.getMonthValue();
 
-        Venda venda = new Venda(cliente, dia, mes ,produto, quantidade, meioPagamento, pago);
+        Venda venda = new Venda(cliente, dia, mes ,produto, quantidade, meioPagamento);
 
         gerenciaVendas.cadastrarVenda(venda);
         System.out.println("Venda cadastrada com sucesso!");
