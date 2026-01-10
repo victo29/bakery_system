@@ -1,9 +1,8 @@
 package br.com.bakery.view;
 
+import br.com.bakery.erros.EmptyInput;
 import br.com.bakery.model.*;
 import br.com.bakery.model.enums.MeioPagamento;
-import br.com.bakery.service.GerenciaProdutos;
-import br.com.bakery.service.GerenciaVendas;
 import br.com.bakery.service.interfaces.GerenciaProdutosInterface;
 import br.com.bakery.service.interfaces.GerenciaVendasInterface;
 
@@ -29,10 +28,7 @@ public class Menu {
             System.out.println("1 - Menu de Vendas");
             System.out.println("2 - Cadastrar Produto");
             System.out.println("0 - Sair");
-            System.out.print("Escolha: ");
-
-            opcao = sc.nextInt();
-            sc.nextLine();
+            opcao = this.inputInt("Escolha: ", "opção");
 
             switch (opcao) {
                 case 1 -> menuVendas();
@@ -48,23 +44,12 @@ public class Menu {
     private void menuProdutos() {
         System.out.println("\n===== MENU DE PRODUTOS =====");
 
-        System.out.println("Código do Produto: ");
-        int codigo = Integer.parseInt(sc.nextLine());
-
-        System.out.print("Descrição do produto: ");
-        String descricao = sc.nextLine();
-
-        System.out.print("Valor de custo: ");
-        double custo = Double.parseDouble(sc.nextLine());
-
-        System.out.print("Percentual de lucro: ");
-        double lucro = Double.parseDouble(sc.nextLine());
-
-        System.out.print("Estoque mínimo: ");
-        int estoqueMin = Integer.parseInt(sc.nextLine());
-
-        System.out.print("Estoque atual: ");
-        int estoqueAtual = Integer.parseInt(sc.nextLine());
+        int codigo = this.inputInt("Código do Produto: ", "código");
+        String descricao = this.inputString("Descrição do produto: ", "descrição do produto");
+        double custo = this.inputDouble("Valor de custo: ", "valor de custo");
+        double lucro = this.inputDouble("Percentual de lucro: ", "percentual de lucro");
+        int estoqueMin = this.inputInt("Estoque mínimo: ", "valor de estoque mínimo");
+        int estoqueAtual = this.inputInt("Estoque atual: ", "valor de estoque atual");
 
 
         Produto produto = new Produto(codigo, descricao, estoqueMin, estoqueAtual , custo, lucro);
@@ -101,10 +86,7 @@ public class Menu {
             System.out.println("6 - Relatório de Vendas (Dinheiro)");
             System.out.println("7 - Relatório de Vendas Não Pagas");
             System.out.println("0 - Sair");
-            System.out.print("Escolha: ");
-
-            opcao = sc.nextInt();
-            sc.nextLine();
+            opcao = this.inputInt("Escolha: ", "opção");
 
             switch (opcao) {
                 case 1 -> cadastrarVenda();
@@ -124,14 +106,12 @@ public class Menu {
     // ===== Métodos auxiliares =====
 
     private void buscarVenda() {
-        System.out.print("Informe o ID da venda: ");
-        int id = Integer.parseInt(sc.nextLine());
+        int id = this.inputInt("Informe o ID da venda: ", "ID");
         gerenciaVendas.buscarVenda(id);
     }
 
     private void relatorioPorMes() {
-        System.out.print("Informe o mês (1 a 12): ");
-        int mes = Integer.parseInt(sc.nextLine());
+        int mes = this.inputInt("Informe o mês (1 a 12): ", "mês" );
         gerenciaVendas.RelatorioVendasPorMes(mes);
     }
 
@@ -141,40 +121,30 @@ public class Menu {
         System.out.println("\nTipo de Cliente:");
         System.out.println("1 - Pessoa Física");
         System.out.println("2 - Pessoa Jurídica");
-        int tipoCliente = Integer.parseInt(sc.nextLine());
-
-
-        System.out.print("Nome: ");
-        String nome = sc.nextLine();
-
-        System.out.print("Telefone: ");
-        String telefone = sc.nextLine();
+        int tipoCliente = this.inputInt("Tipo do cliente: ", "tipo do cliente");
+        String nome =  this.inputString("Nome: ", "nome do cliente");
+        String telefone = this.inputString("Telefone: ", "telefone do cliente");
 
         Cliente cliente;
         if (tipoCliente == 1) {
-            System.out.print("CPF: ");
-            String cpf = sc.nextLine();
+            String cpf = this.inputString("CPF: ", "CPF do cliente");
             cliente = new ClienteFisico(nome, telefone, cpf);
         } else {
-            System.out.print("CNPJ: ");
-            String cnpj = sc.nextLine();
-            System.out.print("Inscrição Estadual: ");
-            String ie = sc.nextLine();
+            String cnpj =  this.inputString("CNPJ: ", "CNPJ do cliente");
+            String ie = this.inputString("Inscrição Estadual: ", "inscrição estadual");
             cliente = new ClienteJuridico(nome, telefone, cnpj, ie);
         }
 
         // ===== Produto =====
         this.gerenciaProdutos.listarProdutos();
 
-        System.out.println("Escolha um produto com base no código: ");
-        int codigo = Integer.parseInt(sc.nextLine());
+        int codigo = this.inputInt("Escolha um produto com base no código: ", "código do produto");
         Produto produto = this.gerenciaProdutos.buscarProdutoPorCodigo(codigo);
 
         // ===== Venda =====
-        System.out.print("Quantidade vendida: ");
-        int quantidade = Integer.parseInt(sc.nextLine());
+        int quantidade = this.inputInt("Quantidade vendida: ", "quantidade");
 
-        System.out.println("Meio de pagamento:");
+        System.out.println(" =================== Meio de pagamento ===================");
         System.out.println("1 - Dinheiro");
         System.out.println("2 - Cheque");
         System.out.println("3 - Cartão Débito");
@@ -182,7 +152,7 @@ public class Menu {
         System.out.println("5 - Ticket Alimentação");
         System.out.println("6 - Fiado");
 
-        int opPagamento = sc.nextInt();
+        int opPagamento = this.inputInt("Opção: ", "opção de pagamento");
 
         MeioPagamento meioPagamento = switch (opPagamento) {
             case 1 -> MeioPagamento.DINHEIRO;
@@ -206,4 +176,45 @@ public class Menu {
         gerenciaVendas.cadastrarVenda(venda);
         System.out.println("Venda cadastrada com sucesso!");
     }
+
+    private String inputString(String message, String inputName){
+        while (true){
+            System.out.println(message);
+            try {
+                String userResponse = sc.nextLine();
+
+                if(userResponse.isEmpty()){
+                    throw new EmptyInput("Você não pode passar o(a) " + inputName + " vazio!!");
+                }
+
+                return userResponse;
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+
+        }
+    }
+
+    private int inputInt(String message, String inputName) {
+        while (true) {
+            System.out.println(message);
+            try {
+                return Integer.parseInt(sc.nextLine());
+            } catch (Exception e) {
+                System.out.println("Você deve informar um(a) " + inputName + " válido(a)!");
+            }
+        }
+    }
+
+    private double inputDouble(String message, String inputName) {
+        while (true) {
+            System.out.println(message);
+            try {
+                return Double.parseDouble(sc.nextLine());
+            } catch (Exception e) {
+                System.out.println("Você deve informar um(a) " + inputName + " válido(a)!");
+            }
+        }
+    }
+
 }
