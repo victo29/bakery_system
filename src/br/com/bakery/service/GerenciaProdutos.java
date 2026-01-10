@@ -2,10 +2,11 @@ package br.com.bakery.service;
 
 import br.com.bakery.model.Produto;
 import br.com.bakery.repository.ProdutoRepository;
+import br.com.bakery.service.interfaces.GerenciaProdutosInterface;
 
 import java.util.List;
 
-public class GerenciaProdutos {
+public class GerenciaProdutos implements GerenciaProdutosInterface {
 
     private final ProdutoRepository produtoRepository;
 

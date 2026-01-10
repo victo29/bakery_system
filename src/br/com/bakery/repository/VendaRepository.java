@@ -1,11 +1,12 @@
 package br.com.bakery.repository;
 
 import br.com.bakery.model.Venda;
+import br.com.bakery.repository.interfaces.VendasRepositoryInterface;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class VendaRepository {
+public class VendaRepository implements VendasRepositoryInterface {
 
     private final List<Venda> vendas;
 

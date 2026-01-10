@@ -4,17 +4,19 @@ import br.com.bakery.model.*;
 import br.com.bakery.model.enums.MeioPagamento;
 import br.com.bakery.service.GerenciaProdutos;
 import br.com.bakery.service.GerenciaVendas;
+import br.com.bakery.service.interfaces.GerenciaProdutosInterface;
+import br.com.bakery.service.interfaces.GerenciaVendasInterface;
 
 import java.util.Scanner;
 import java.time.LocalDate;
 
 public class Menu {
 
-    private final GerenciaVendas gerenciaVendas;
-    private final GerenciaProdutos gerenciaProdutos;
+    private final GerenciaVendasInterface gerenciaVendas;
+    private final GerenciaProdutosInterface gerenciaProdutos;
     private final Scanner sc = new Scanner(System.in);
 
-    public Menu(GerenciaVendas gerenciaVendas, GerenciaProdutos gerenciaProdutos) {
+    public Menu(GerenciaVendasInterface gerenciaVendas, GerenciaProdutosInterface gerenciaProdutos) {
         this.gerenciaVendas = gerenciaVendas;
         this.gerenciaProdutos = gerenciaProdutos;
     }
@@ -84,7 +86,6 @@ public class Menu {
         this.exibirMenuVendas();
 
     }
-
 
     private void exibirMenuVendas() {
         int opcao;

@@ -1,8 +1,9 @@
 package br.com.bakery.service.interfaces;
 
+import br.com.bakery.model.Venda;
 import br.com.bakery.model.enums.MeioPagamento;
 
-public interface RelatorioVenda {
+public interface GerenciaVendasInterface {
 
     void buscarVenda(int id);
 
@@ -13,4 +14,7 @@ public interface RelatorioVenda {
     void RelatorioVendasPorMeioPagamento(MeioPagamento meioPagamento);
 
     void RelatorioVendasNaoPagas();
+
+    void cadastrarVenda(Venda venda);
+
 }

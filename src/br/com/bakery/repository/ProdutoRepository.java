@@ -1,11 +1,12 @@
 package br.com.bakery.repository;
 
 import br.com.bakery.model.Produto;
+import br.com.bakery.repository.interfaces.ProdutoRepositoryInterface;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProdutoRepository {
+public class ProdutoRepository implements ProdutoRepositoryInterface {
 
     private final List<Produto> produtos;
 

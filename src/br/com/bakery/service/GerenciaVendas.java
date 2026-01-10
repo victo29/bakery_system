@@ -4,13 +4,12 @@ import br.com.bakery.model.ClienteFisico;
 import br.com.bakery.model.ClienteJuridico;
 import br.com.bakery.model.Venda;
 import br.com.bakery.model.enums.MeioPagamento;
-import br.com.bakery.repository.ProdutoRepository;
 import br.com.bakery.repository.VendaRepository;
-import br.com.bakery.service.interfaces.RelatorioVenda;
+import br.com.bakery.service.interfaces.GerenciaVendasInterface;
 
 import java.util.List;
 
-public class GerenciaVendas implements RelatorioVenda {
+public class GerenciaVendas implements GerenciaVendasInterface {
 
     private final VendaRepository vendaRepository;
 
