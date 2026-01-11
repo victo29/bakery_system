@@ -1,23 +1,45 @@
 package br.com.bakery.service;
 
+import br.com.bakery.erros.InsufficientStockException;
 import br.com.bakery.model.ClienteFisico;
 import br.com.bakery.model.ClienteJuridico;
+import br.com.bakery.model.Produto;
 import br.com.bakery.model.Venda;
 import br.com.bakery.model.enums.MeioPagamento;
+import br.com.bakery.repository.ProdutoRepository;
 import br.com.bakery.repository.VendaRepository;
+import br.com.bakery.repository.interfaces.ProdutoRepositoryInterface;
+import br.com.bakery.repository.interfaces.VendasRepositoryInterface;
 import br.com.bakery.service.interfaces.GerenciaVendasInterface;
 
 import java.util.List;
 
 public class GerenciaVendas implements GerenciaVendasInterface {
 
-    private final VendaRepository vendaRepository;
+    private final VendasRepositoryInterface vendaRepository;
+    private final ProdutoRepositoryInterface produtoRepository;
 
-    public GerenciaVendas(VendaRepository vendaRepository) {
+    public GerenciaVendas(VendasRepositoryInterface vendaRepository,ProdutoRepositoryInterface produtoRepository ) {
         this.vendaRepository = vendaRepository;
+        this.produtoRepository = produtoRepository;
     }
 
+    @Override
     public void cadastrarVenda(Venda venda) {
+
+        Produto produto = venda.getProduto();
+
+        int novoValorEstoque = produto.getEstoqueAtual() -  venda.getQuantidadeVendida();
+
+        if (produto.getEstoqueMinimo() > novoValorEstoque){
+            throw new InsufficientStockException("A quatidade no estoque não é suficiente para realizar a venda");
+        }
+
+        produto.setEstoqueAtual(novoValorEstoque);
+
+
+        this.produtoRepository.atualizarProduto(produto);
+
         vendaRepository.salvar(venda);
     }
 

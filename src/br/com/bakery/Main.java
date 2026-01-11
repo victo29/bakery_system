@@ -14,7 +14,7 @@ public class Main {
         VendaRepository vendaRepository = new VendaRepository();
 
         GerenciaProdutos gerenciaProdutos = new GerenciaProdutos(produtoRepository);
-        GerenciaVendas gerenciaVendas = new GerenciaVendas(vendaRepository);
+        GerenciaVendas gerenciaVendas = new GerenciaVendas(vendaRepository, produtoRepository);
 
         Menu menu = new Menu(gerenciaVendas, gerenciaProdutos);
 

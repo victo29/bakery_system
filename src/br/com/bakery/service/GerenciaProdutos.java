@@ -2,18 +2,20 @@ package br.com.bakery.service;
 
 import br.com.bakery.model.Produto;
 import br.com.bakery.repository.ProdutoRepository;
+import br.com.bakery.repository.interfaces.ProdutoRepositoryInterface;
 import br.com.bakery.service.interfaces.GerenciaProdutosInterface;
 
 import java.util.List;
 
 public class GerenciaProdutos implements GerenciaProdutosInterface {
 
-    private final ProdutoRepository produtoRepository;
+    private final ProdutoRepositoryInterface produtoRepository;
 
-    public GerenciaProdutos(ProdutoRepository produtoRepository) {
+    public GerenciaProdutos(ProdutoRepositoryInterface produtoRepository) {
         this.produtoRepository = produtoRepository;
     }
 
+    @Override
     public boolean cadastrarProduto(Produto produto) {
 
         Produto produtoEncontrado = produtoRepository.buscarPorCodigo(produto.getCodigo());
@@ -27,6 +29,7 @@ public class GerenciaProdutos implements GerenciaProdutosInterface {
         return true;
     }
 
+    @Override
     public void listarProdutos() {
         List<Produto> produtos =  produtoRepository.listar();
 
@@ -39,6 +42,7 @@ public class GerenciaProdutos implements GerenciaProdutosInterface {
 
     }
 
+    @Override
     public Produto buscarProdutoPorCodigo(int codigo) {
         Produto produto = produtoRepository.buscarPorCodigo(codigo);
 
@@ -50,6 +54,7 @@ public class GerenciaProdutos implements GerenciaProdutosInterface {
         return produto;
     }
 
+    @Override
     public boolean possuiProdutosCadastrados() {
         return !produtoRepository.listar().isEmpty();
     }
