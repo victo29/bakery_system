@@ -1,6 +1,6 @@
 package br.com.bakery.view;
 
-import br.com.bakery.erros.EmptyInput;
+import br.com.bakery.erros.EmptyInputException;
 import br.com.bakery.model.*;
 import br.com.bakery.model.enums.MeioPagamento;
 import br.com.bakery.service.interfaces.GerenciaProdutosInterface;
@@ -179,7 +179,7 @@ public class Menu {
                 String userResponse = sc.nextLine();
 
                 if(userResponse.isEmpty()){
-                    throw new EmptyInput("Você não pode passar o(a) " + inputName + " vazio!!");
+                    throw new EmptyInputException("Você não pode passar o(a) " + inputName + " vazio!!");
                 }
 
                 return userResponse;
