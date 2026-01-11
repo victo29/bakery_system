@@ -1,5 +1,6 @@
 package br.com.bakery.repository;
 
+import br.com.bakery.erros.ProductNotFoundException;
 import br.com.bakery.model.Produto;
 import br.com.bakery.repository.interfaces.ProdutoRepositoryInterface;
 
@@ -14,14 +15,17 @@ public class ProdutoRepository implements ProdutoRepositoryInterface {
         this.produtos = new ArrayList<>();
     }
 
+    @Override
     public void salvar(Produto produto) {
         produtos.add(produto);
     }
 
+    @Override
     public List<Produto> listar() {
         return produtos;
     }
 
+    @Override
     public Produto buscarPorCodigo(int codigo) {
         for (Produto produto : produtos) {
             if (produto.getCodigo() == codigo) {
@@ -29,5 +33,17 @@ public class ProdutoRepository implements ProdutoRepositoryInterface {
             }
         }
         return null;
+    }
+
+    @Override
+    public void atualizarProduto(Produto produto) {
+        for (int i = 0; i < produtos.size(); i++) {
+            if (produtos.get(i).getCodigo() == produto.getCodigo()) {
+                produtos.set(i, produto);
+                return;
+            }
+        }
+
+        throw new ProductNotFoundException("Produto não encontrado para atualização.");
     }
 }

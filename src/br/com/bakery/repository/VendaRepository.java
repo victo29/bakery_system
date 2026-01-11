@@ -14,14 +14,17 @@ public class VendaRepository implements VendasRepositoryInterface {
         this.vendas = new ArrayList<>();
     }
 
+    @Override
     public void salvar(Venda venda) {
         vendas.add(venda);
     }
 
+    @Override
     public List<Venda> listar() {
         return vendas;
     }
 
+    @Override
     public Venda buscarPorId(int id) {
         for (Venda venda : vendas) {
             if (venda.getId() == id) {

@@ -135,10 +135,7 @@ public class Menu {
 
         // ===== Produto =====
         this.gerenciaProdutos.listarProdutos();
-
-        int codigo = this.inputInt("Escolha um produto com base no código: ", "código do produto");
-        Produto produto = this.gerenciaProdutos.buscarProdutoPorCodigo(codigo);
-
+        Produto produto = this.getProdutoById();
         // ===== Venda =====
         int quantidade = this.inputInt("Quantidade vendida: ", "quantidade");
 
@@ -168,8 +165,12 @@ public class Menu {
 
         Venda venda = new Venda(cliente, dia, mes ,produto, quantidade, meioPagamento);
 
-        gerenciaVendas.cadastrarVenda(venda);
-        System.out.println("Venda cadastrada com sucesso!");
+        try{
+            gerenciaVendas.cadastrarVenda(venda);
+            System.out.println("Venda cadastrada com sucesso!");
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     private String inputString(String message, String inputName){
@@ -212,4 +213,14 @@ public class Menu {
         }
     }
 
+    private Produto getProdutoById(){
+        while (true){
+            int codigo = this.inputInt("Escolha um produto com base no código: ", "código do produto");
+            Produto produto = this.gerenciaProdutos.buscarProdutoPorCodigo(codigo);
+            if (produto != null) {
+                return produto;
+            }
+        }
+
+    }
 }

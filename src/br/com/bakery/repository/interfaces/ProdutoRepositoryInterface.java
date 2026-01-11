@@ -14,4 +14,5 @@ public interface ProdutoRepositoryInterface {
 
     public Produto buscarPorCodigo(int codigo);
 
+    public void atualizarProduto(Produto produto);
 }
